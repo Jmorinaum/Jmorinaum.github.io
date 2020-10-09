@@ -13,13 +13,12 @@ header{
     font-size: 250%;
     text-indent: 20px;
     margin: 3px;
-    
+    text-align: left !important;
 }
 .h3_header{
     text-indent: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-    text-align: left !important;
 }
 .home{
     text-decoration-color: orange;

@@ -86,6 +86,8 @@ sidebar{
     display: block;
     width: 150px;
     color: white;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 #nav_menu ul ul{
     display: none;

@@ -88,6 +88,8 @@ sidebar{
     text-align: center;
     display: block;
     width: 150px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 #nav_menu ul ul{
     display: none;

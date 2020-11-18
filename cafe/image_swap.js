@@ -4,7 +4,7 @@ $(document).ready(function ()
     $("ul img").each(function ()
     {
         $(this).hover(function ()
-        {   $(this).css("opacity", 0.5);
+        {   $(this).css("opacity", 1);
             $(this).attr("src", this.id);
            
         }, function () {

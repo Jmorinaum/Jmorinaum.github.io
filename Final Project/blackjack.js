@@ -12,15 +12,101 @@ var playerCards = new Array();
 
 var cardHouses = new Array('H', 'D', 'S', 'C');
 
+function reset() {
+    playedCards = new Array();
+    playerCount = 0;
+    dealerCount = 0;
+    resetCardBoxDiv('dealer');
+    resetCardBoxDiv('player');
+    document.getElementById('dealer-blackjack-result').innerText = dealerCount;
+    document.getElementById('dealer-blackjack-result').style.color = 'white';
+    document.getElementById('player-blackjack-result').innerText = playerCount;
+    document.getElementById('player-blackjack-result').style.color = 'white';
+}
+function generateCardID(whoPlaying) {
+    
+    let newCard = false;
+    let cardNum;
+
+    while(newCard == false)
+    {
+        var character = "AKQJ023456789";
+        cardNum = character.charAt(Math.floor(Math.random()*character.length));
+        if (cardNum == 0){
+            return cardNum = 10;
+        }
+        let cardHouseIndex = Math.floor(Math.random()*4);
+        let card = ''+cardNum+cardHouses[cardHouseIndex];
+        let checkCard = false;
+
+        for(let i = 0;i<playedCards.length;i++)
+        {
+            if(playedCards[i] == card)
+            {
+                checkCard = true;
+            }
+        }
+        if(checkCard == false)
+        {
+            newCard = true;
+            playedCards.push(card);
+        }
+    }
+    if(cardNum == "K")
+    {
+        return 10;
+    }
+    else if(cardNum == "Q")
+    {
+        return 10;
+    }
+    else if(cardNum == "J")
+    {
+        return 10;
+    }
+    else if(cardNum<=10 && cardNum>1)
+    {
+        return parseInt(cardNum);
+    }
+    else if(cardNum == "A")
+    {
+        if(whoPlaying == 'player')
+        {
+
+            if(playerCount <= 10)
+            {
+                return 11;
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+        else if(whoPlaying == 'dealer')
+        {
+            if(dealerCount <= 10)
+            {
+                return 11;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+}
+
+ 
 function deal()
-{
+ {
     document.getElementById("deal-button").disabled = true;
     document.getElementById("hit-button").disabled = false;
     document.getElementById("stay-button").disabled = false;
     reset();
 
-    if(playerWins === -1)
-    {
+    if (playerWins === -1)
+     {
         playerWins = 0;
         document.getElementById('start-img').remove();
         document.getElementById('start-img').remove();
@@ -32,36 +118,23 @@ function deal()
     dealCard('player');
     document.getElementById('player-blackjack-result').innerText = playerCount;
 
-    if(playerCount == 21)
-    {
+    if (playerCount === 21)
+     {
         dealer();
     }
 }
 
 function dealCard(whoPlaying)
 {
-    if(whoPlaying == 'dealer')
+    if (whoPlaying == 'dealer')
     {
         dealerCount += generateCardID(whoPlaying);
     }
-    else if(whoPlaying == 'player')
+    else if (whoPlaying == 'player')
     {
         playerCount += generateCardID(whoPlaying);
     }
     addCard(playedCards[playedCards.length-1],whoPlaying);
-}
-
-function reset()
-{
-    playedCards = new Array();
-    playerCount = 0;
-    dealerCount = 0;
-    resetCardBoxDiv('dealer');
-    resetCardBoxDiv('player');
-    document.getElementById('dealer-blackjack-result').innerText = dealerCount;
-    document.getElementById('dealer-blackjack-result').style.color = 'white';
-    document.getElementById('player-blackjack-result').innerText = playerCount;
-    document.getElementById('player-blackjack-result').style.color = 'white';
 }
 
 function winner()
@@ -215,81 +288,6 @@ function hitPlayer()
     else
     {
         console.log('player safe');
-    }
-}
-
-function generateCardID(whoPlaying)
-{
-    
-    let newCard = false;
-    let cardNum;
-
-    while(newCard == false)
-    {
-        var character = "AKQJ023456789";
-        cardNum = character.charAt(Math.floor(Math.random()*character.length));
-        if (cardNum == 0){
-            return cardNum = 10;
-        }
-        let cardHouseIndex = Math.floor(Math.random()*4);
-        let card = ''+cardNum+cardHouses[cardHouseIndex];
-        let checkCard = false;
-
-        for(let i = 0;i<playedCards.length;i++)
-        {
-            if(playedCards[i] == card)
-            {
-                checkCard = true;
-            }
-        }
-        if(checkCard == false)
-        {
-            newCard = true;
-            playedCards.push(card);
-        }
-    }
-    if(cardNum == "K")
-    {
-        return 10;
-    }
-    else if(cardNum == "Q")
-    {
-        return 10;
-    }
-    else if(cardNum == "J")
-    {
-        return 10;
-    }
-    else if(cardNum<=9 && cardNum>1)
-    {
-        return cardNum;
-    }
-    else if(cardNum == "A")
-    {
-        if(whoPlaying == 'player')
-        {
-
-            if(playerCount <= 10)
-            {
-                return 11;
-            }
-            else
-            {
-                return 1;
-            }
-
-        }
-        else if(whoPlaying == 'dealer')
-        {
-            if(dealerCount <= 10)
-            {
-                return 11;
-            }
-            else
-            {
-                return 1;
-            }
-        }
     }
 }
 
